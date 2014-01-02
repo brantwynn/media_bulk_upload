@@ -36,7 +36,8 @@ function media_bulk_upload_file_page_edit_multiple($files) {
     $file = $files[$fid];
     $title = t('<em>Edit @type</em> @title', array('@type' => $file->type, '@title' => $file->filename));
     $file_display = file_view_file($file, 'teaser');
-    $child['#prefix'] = '<div class="media-bulk-upload-image-header">' . drupal_render($file_display) . '</div>';
+    $child['#prefix'] = '<div class="media-bulk-asset"><div class="media-bulk-upload-image-header">' . drupal_render($file_display) . '</div>';
+    $child['#suffix'] = '</div>';
     // Hide unused items.
     $unused = array('actions', 'preview');
     foreach ($unused as $item) {
