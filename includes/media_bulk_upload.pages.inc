@@ -44,11 +44,6 @@ function media_bulk_upload_file_page_edit_multiple($files) {
         $child[$item]['#access'] = FALSE;
       }
     }
-    // Manualcrop is broken on multiforms so remove it for now.
-    // @todo: fix manualcrop to support multiform and respect #access
-    if (isset($child['manualcrop'])) {
-      unset($child['manualcrop']);
-    }
   }
   if (isset($form['buttons']['Delete'])) {
     $form['buttons']['Delete']['#access'] = FALSE;
