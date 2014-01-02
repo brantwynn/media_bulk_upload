@@ -31,16 +31,25 @@ function media_bulk_upload_file_page_edit_multiple($files) {
 
   // Add the header to each 'subform'.
   foreach (element_children($form['multiform']) as $key) {
-    $item = &$form['multiform'][$key];
-    $fid = $item['fid']['#value'];
+    $child = &$form['multiform'][$key];
+    $fid = $child['fid']['#value'];
     $file = $files[$fid];
     $title = t('<em>Edit @type</em> @title', array('@type' => $file->type, '@title' => $file->filename));
     $file_display = file_view_file($file, 'teaser');
-    $item['#prefix'] = '<div class="media-bulk-upload-image-header">' . drupal_render($file_display) . '</div>';
-    // Hide 'subform' actions (Save, Delete, Cancel)
-    $item['actions']['#access'] = FALSE;
+    $child['#prefix'] = '<div class="media-bulk-upload-image-header">' . drupal_render($file_display) . '</div>';
+    // Hide unused items.
+    $unused = array('actions', 'preview');
+    foreach ($unused as $item) {
+      if (isset($child[$item])) {
+        $child[$item]['#access'] = FALSE;
+      }
+    }
+    // Manualcrop is broken on multiforms so remove it for now.
+    // @todo: fix manualcrop to support multiform and respect #access
+    if (isset($child['manualcrop'])) {
+      unset($child['manualcrop']);
+    }
   }
-  
   if (isset($form['buttons']['Delete'])) {
     $form['buttons']['Delete']['#access'] = FALSE;
   }
