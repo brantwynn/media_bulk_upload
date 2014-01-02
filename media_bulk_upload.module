@@ -83,7 +83,7 @@ function media_bulk_upload_form_alter(&$form, &$form_state, $form_id) {
     $form['#submit'][] = 'media_bulk_upload_browser_form_submit';
   }
 
-  // Hide 'Replace file' and Additional settings into a fieldset.
+  // Nest 'Replace file' and Additional settings into a fieldset.
   if (strstr($form_id, 'media_edit_')) {
     $form['more'] = array(
       '#type' => 'fieldset', 
