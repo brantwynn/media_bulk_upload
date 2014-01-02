@@ -27,7 +27,6 @@ function media_bulk_upload_file_page_edit_multiple($files) {
   $form = call_user_func_array('multiform_get_form', $forms);
   
   $form['#attached']['css'] = array(drupal_get_path('module', 'media_bulk_upload') . '/css/media_bulk_upload.css',);
-
   $form['#attributes']['class'][] = 'media-bulk-upload-multiedit-form';
 
   // Add the title to each 'subform'.
@@ -35,10 +34,11 @@ function media_bulk_upload_file_page_edit_multiple($files) {
     $fid = $form['multiform'][$key]['fid']['#value'];
     $file = $files[$fid];
     $title = t('<em>Edit @type</em> @title', array('@type' => $file->type, '@title' => $file->filename));
-    $form['multiform'][$key]['#prefix'] = '<h2>' . $title . '</h2>';
+    $file_display = file_view_file($file, 'teaser');
+    $form['multiform'][$key]['#prefix'] = '<div class="media-bulk-upload-image-header">' . drupal_render($file_display) . '</div>';
     $form['multiform'][$key]['actions']['#access'] = FALSE;
   }
-
+  
   if (isset($form['buttons']['Delete'])) {
     $form['buttons']['Delete']['#access'] = FALSE;
   }
