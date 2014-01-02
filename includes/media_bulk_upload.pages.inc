@@ -25,6 +25,9 @@ function media_bulk_upload_file_page_edit_multiple($files) {
   }
 
   $form = call_user_func_array('multiform_get_form', $forms);
+  
+  $form['#attached']['css'] = array(drupal_get_path('module', 'media_bulk_upload') . '/css/media_bulk_upload.css',);
+
   $form['#attributes']['class'][] = 'media-bulk-upload-multiedit-form';
 
   // Add the title to each 'subform'.
